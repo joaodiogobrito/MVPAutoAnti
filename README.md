@@ -2,7 +2,7 @@
 
   
 # Installation requirements
-Clone the repository and install the following requirements in the root folder of the framework.
+Clone the repository and install the following requirements.
 - npm:<br />
   npm install -g npm
 - playwright:<br />
