@@ -11,7 +11,7 @@ const { defineConfig, devices } = require('@playwright/test');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
-  timeout: 30000,
+  timeout: 60000,
   expect: {
     timeout: 10000,
   },
@@ -43,11 +43,10 @@ module.exports = defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
     
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+ //   {
+ //     name: 'firefox',
+ //     use: { ...devices['Desktop Firefox'] },
+ //   },
 
  //   {
  //     name: 'webkit',

@@ -1,5 +1,5 @@
 {
-  "name": "automationframeworkjb",
+  "name": "automationframeworkanti",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,5 +9,8 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.36.1"
+  },
+  "dependencies": {
+    "playwright": "^1.37.1"
   }
 }
