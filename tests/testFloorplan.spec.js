@@ -27,4 +27,4 @@ test('test', async ({ page }) => {
 
   });
 
-  //TODO: Add a test to verify edit page functionality
+  //TODO: Add a test to verify Open Floorplan in details page
