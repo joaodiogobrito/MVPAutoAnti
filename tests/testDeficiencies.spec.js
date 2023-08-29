@@ -4,18 +4,11 @@ import { test, expect, page } from '@playwright/test';
 test('test', async ({ page }) => {
   const homepage = new HomePage(page);
 
-    await page.goto('https://ax-nimber.ddns.net/login');
-    await page.getByLabel('Email').click();
-    await page.getByLabel('Email').fill(process.env.USERNAME);
-    await page.getByLabel('Email').press('Tab');
-    await page.getByLabel('Password').click();
-    await page.getByLabel('Password').fill(process.env.PASSWORD);
-    await page.getByRole('button', { name: 'Sign In' }).click();;
-
+    await homepage.loginUser();
     await page.getByRole('heading', { name: 'Deficiencies' }).getByRole('link').click();
-    await page.getByText('Select Object').click();;
-    await page.locator('#react-select-3-input').fill('ORT-00300');
-    await page.getByRole('button', { name: 'Jütro Tiefkühlkost GmbH & Co.KG#ORT-00300' }).click();
+
+    //Test Select Object
+    await homepage.selectObjectFilter('ORT-00300','Jütro Tiefkühlkost GmbH & Co.KG#ORT-00300');
 
     //Test Select Area - no results
     await page.getByText('Select Area').click();

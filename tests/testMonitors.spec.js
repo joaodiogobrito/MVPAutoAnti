@@ -20,8 +20,8 @@ test('test', async ({ page, context }) => {
     await homepage.selectFilter('Area','Sozialraum');
     await expect.soft(page.getByRole('row', { name: MB92 }).getByRole('cell').first(),'Assert option is present').toBeVisible();
     await expect.soft(page.getByRole('row', { name: SF89 }).getByRole('cell').first(),'Assert option is present').toBeVisible();
-    await expect.soft(page.getByRole('row', { name:  SF91 }).getByRole('cell').first(),'Assert option is present').toBeVisible();
-    await expect.soft(page.getByRole('row', { name:  MB90}).getByRole('cell').first(),'Assert option is present').toBeVisible();
+    await expect.soft(page.getByRole('row', { name: SF91 }).getByRole('cell').first(),'Assert option is present').toBeVisible();
+    await expect.soft(page.getByRole('row', { name: MB90 }).getByRole('cell').first(),'Assert option is present').toBeVisible();
 
     //Test Select Status - no results
     await homepage.selectFilter('Status','Not reachable');

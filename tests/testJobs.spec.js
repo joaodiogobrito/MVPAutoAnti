@@ -4,39 +4,28 @@ import { test, expect, page} from '@playwright/test';
 test('test', async ({ page, context }) => {
   const homepage = new HomePage(page);
 
-    await page.goto('https://ax-nimber.ddns.net/login');
-    await page.getByLabel('Email').click();
-    await page.getByLabel('Email').fill(process.env.USERNAME);
-    await page.getByLabel('Email').press('Tab');
-    await page.getByLabel('Password').click();
-    await page.getByLabel('Password').fill(process.env.PASSWORD);
-    await page.getByRole('button', { name: 'Sign In' }).click();;
+    await homepage.loginUser();
     await page.getByRole('list').getByRole('link', { name: 'Jobs' }).click();
-    await page.getByText('Select Object').click();
-
+    
     //Test Select Object
-    await page.locator('#react-select-3-input').fill('ORT-00300');
-    await page.getByRole('button', { name: 'Jütro Tiefkühlkost GmbH & Co.KG#ORT-00300' }).click();
+    await homepage.selectObjectFilter('ORT-00300','Jütro Tiefkühlkost GmbH & Co.KG#ORT-00300');
     await expect.soft(page.getByRole('cell', { name: 'Systemeinrichtung' })).toBeVisible();
-    await expect.soft(page.getByRole('cell', { name: 'Schädlingsprophylaxe außen/innen' })).toBeVisible();
-    await expect.soft(page.getByRole('cell', { name: 'UV-Lichtfallen - Wartung und Miete' })).toBeVisible();
+    await expect.soft(page.getByRole('cell', { name: 'Schädlingsprophylaxe außen/innen' }).first()).toBeVisible();
+    await expect.soft(page.getByRole('cell', { name: 'UV-Lichtfallen - Wartung und Miete' }).first()).toBeVisible();
 
     //Test Select Action
-    await page.getByText('Select Action').click();
-    await page.getByRole('button', { name: 'Systemeinrichtung' }).click();
+    await homepage.selectFilter('Action', 'Systemeinrichtung');
     await expect.soft(page.getByRole('cell', { name: 'Systemeinrichtung' })).toBeVisible();
     await expect.soft(page.getByRole('cell', { name: 'Schädlingsprophylaxe außen/innen' })).not.toBeVisible();
 
-    //Test Contract Type - no results    
-    await page.getByText('Select Contract Type').click();
-    await page.getByRole('button', { name: 'Monitors' }).click();
+    //Test Contract Type - no results
+    await homepage.selectFilter('Contract Type', 'Monitors');       
     await expect.soft(page.getByText('No Results to Show'),'Assert no results are displayed').toBeVisible();
     await expect.soft(page.getByRole('cell', { name: 'Systemeinrichtung' })).not.toBeVisible();
 
     //Test Contract Type - with results
     await page.getByLabel('Clear selected options').nth(2).click();
-    await page.getByText('Select Contract Type').click();
-    await page.getByRole('button', { name: 'Jobs' }).click();
+    await homepage.selectFilter('Contract Type', 'Jobs');     
     await expect.soft(page.getByRole('cell', { name: 'Systemeinrichtung' })).toBeVisible();
     await expect.soft(page.getByRole('cell', { name: 'Schädlingsprophylaxe außen/innen' })).not.toBeVisible();
 
