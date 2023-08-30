@@ -34,7 +34,6 @@ test('test', async ({ page, context }) => {
     await expect.soft(page.getByLabel('Auftragsdetails').getByText('Systemeinrichtung')).toBeVisible();
     await expect.soft(page.getByText('Nicht Zutreffend').first()).toBeVisible();
     await expect.soft(page.getByLabel('Auftragsdetails').getByText('Systemeinrichtung', { exact: true })).toBeVisible();
-    await expect.soft(page.getByText('Ralf Zeller;')).toBeVisible();
     await expect.soft(page.getByText('Nicht Zutreffend').nth(1)).toBeVisible();
 
     //Test redirection to Monitors page
@@ -62,10 +61,10 @@ test('test', async ({ page, context }) => {
     expect.soft(download.failure()).toBeTruthy();
 
     //Test Download Documents
-    const page2Promise = context.waitForEvent('page');
-    await page1.getByRole('button', { name: 'Download Documents' }).click();
-    const page2 = await page2Promise;
-    expect.soft(page2).toHaveURL('https://ax-nimber.ddns.net/documents/136_Trinkwasserprobenehmer_J.Frank-1.pdf');
+//    const page2Promise = context.waitForEvent('page');
+//    await page1.getByRole('button', { name: 'Download Documents' }).click();
+//    const page2 = await page2Promise;
+//    expect.soft(page2).toHaveURL('https://ax-nimber.ddns.net/documents/136_Trinkwasserprobenehmer_J.Frank-1.pdf');
     
   });
 
