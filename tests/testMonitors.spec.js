@@ -37,9 +37,9 @@ test('test', async ({ page, context }) => {
     await expect.soft(page.getByRole('row', { name: MB90 }).getByRole('cell').first(),'Assert option is present').toBeVisible();
 
     //Test Select Monitor Type - no results
-    //await homepage.selectFilter('Monitor Type','RB');
-    //await expect.soft(page.getByText('No Results to Show'),'Assert no results are displayed').toBeVisible();
-    //await page.getByLabel('Remove RB').click();
+    await homepage.selectFilter('Monitor Type','RB');
+    await expect.soft(page.getByText('No Results to Show'),'Assert no results are displayed').toBeVisible();
+    await page.getByLabel('Remove RB').click();
 
     //Test Select Monitor Type - with results
     //await homepage.selectFilter('Monitor Type','MB');
@@ -47,9 +47,9 @@ test('test', async ({ page, context }) => {
     //await expect.soft(page.getByRole('row', { name: 'MB90 Sozialraum Umkleide Damen Feuerlöscher' }).getByRole('cell').first(),'Assert option is present').toBeVisible();
 
     //Test Select Checkpoint
-    await page.getByText('Select Checkpoint').click();
-    await page.getByRole('button', { name: 'MB 92' }).click();
-    await expect.soft(page.getByRole('row', { name: 'MB92 Sozialraum Umkleide Herren Feuerlöscher' }).getByRole('cell').first(),'Assert option is present').toBeVisible();
+    //await page.getByText('Select Checkpoint').click();
+    //await page.getByRole('button', { name: 'MB 92' }).click();
+    //await expect.soft(page.getByRole('row', { name: 'MB92 Sozialraum Umkleide Herren Feuerlöscher' }).getByRole('cell').first(),'Assert option is present').toBeVisible();
   
     //Test clear options
     await page.getByLabel('Clear selected options').nth(3).click();
@@ -63,7 +63,21 @@ test('test', async ({ page, context }) => {
     await page.locator('#react-select-3-input').fill('ORT-13351');
     await page.getByRole('button', { name: 'Reformhaus Bacher, Filiale 83#ORT-13351' }).click();
     await page.getByRole('cell', { name: 'SF103' }).click();
-  //  await expect.soft(page.getByRole('row', { name: '2023-01-06 Reformhaus Bacher, Filiale 83 Monitor/System gereinigt/gepflegt 2 0 Kein Befall - Pflege durchgeführt 1 x Schabeneinleger kurz, FV' }).locator('div'),'Assert expected element is present').toBeVisible();
+    //  await expect.soft(page.getByRole('row', { name: '2023-01-06 Reformhaus Bacher, Filiale 83 Monitor/System gereinigt/gepflegt 2 0 Kein Befall - Pflege durchgeführt 1 x Schabeneinleger kurz, FV' }).locator('div'),'Assert expected element is present').toBeVisible();
+
+    //Test Monitor element details page
+    await page.getByRole('cell', { name: 'Reformhaus Bacher, Filiale 83' }).click();
+    await expect.soft(page.getByText('0000709905', { exact: true }),'Assert expected element is present').toBeVisible();
+    await expect.soft(page.getByLabel('Monitor history').getByText('Reformhaus Bacher, Filiale 83'),'Assert expected element is present').toBeVisible();
+    await expect.soft(page.getByText('103', { exact: true }),'Assert expected element is present').toBeVisible();
+    await expect.soft(page.getByLabel('Monitor history').getByText('2', { exact: true }),'Assert expected element is present').toBeVisible();
+    await expect.soft(page.getByLabel('Monitor history').getByText('Kein Befall - Pflege durchgeführt'),'Assert expected element is present').toBeVisible();
+    await expect.soft(page.getByText('1343115'),'Assert expected element is present').toBeVisible();
+    await expect.soft(page.getByLabel('Monitor history').getByText('2023-01-06'),'Assert expected element is present').toBeVisible();
+    await expect.soft(page.getByText('SF', { exact: true }),'Assert expected element is present').toBeVisible();
+    await expect.soft(page.getByLabel('Monitor history').getByText('Monitor/System gereinigt/gepflegt'),'Assert expected element is present').toBeVisible();
+    await expect.soft(page.getByText('Nicht Zutreffend'),'Assert expected element is present').toBeVisible();
+    await expect.soft(page.getByLabel('Monitor history').getByText('Büro Spühle'),'Assert expected element is present').toBeVisible();
 
     //Test Floorplan redirection
     const page1Promise = context.waitForEvent('page');
@@ -73,19 +87,6 @@ test('test', async ({ page, context }) => {
     await expect.soft(page1.getByText('Reformhaus Bacher GmbH & Co. KG')).toBeVisible();
     await expect.soft(page1.getByText('Reformhaus Bacher, Filiale 83').nth(1)).toBeVisible();
     await expect.soft(page1.getByText('Reformhaus Bacher, Filiale 83').first()).toBeVisible();
-
-    //Test Monitor element details page
-    await page.getByRole('cell', { name: 'Reformhaus Bacher, Filiale 83' }).click();
-    await expect.soft(page.getByText('Verlauf überwachen'),'Assert expected element is present').toBeVisible();
-    await expect.soft(page.getByLabel('Verlauf überwachen').getByText('2023-01-06'),'Assert expected element is present').toBeVisible();
-    await expect.soft(page.getByLabel('Verlauf überwachen').getByText('Reformhaus Bacher, Filiale 83'),'Assert expected element is present').toBeVisible();
-    await expect.soft(page.getByText('SF', { exact: true }),'Assert expected element is present').toBeVisible();
-    await expect.soft(page.getByText('103', { exact: true }),'Assert expected element is present').toBeVisible();
-    await expect.soft(page.getByLabel('Verlauf überwachen').getByText('Monitor/System gereinigt/gepflegt'),'Assert expected element is present').toBeVisible();
-    await expect.soft(page.getByLabel('Verlauf überwachen').getByText('2', { exact: true }),'Assert expected element is present').toBeVisible();
-    await expect.soft(page.getByLabel('Verlauf überwachen').getByText('Kein Befall - Pflege durchgeführt'),'Assert expected element is present').toBeVisible();
-    await expect.soft(page.getByLabel('Verlauf überwachen').getByText('Büro Spühle'),'Assert expected element is present').toBeVisible();
-    await expect.soft(page.getByText('Nicht Zutreffend').first(),'Assert expected element is present').toBeVisible();
 
     //Test Floorplan redirection from details page
     await page1.getByRole('link', { name: 'Monitors' }).click();

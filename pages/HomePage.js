@@ -10,6 +10,9 @@ export const HomePage = class Homepage {
     this.getPasswordField = page.getByLabel('Password');
     this.getLoginButton = page.getByRole('button', { name: 'Sign In' });
     this.getAddToCartButton = page.getByRole('link', { name: 'Add to cart' });
+    this.getLanguageButton = page.locator('[id="menu-button-\\:r1\\:"]');
+    this.selectEnglish = page.getByRole('menuitem', { name: 'en flag' });  
+ 
 
     }
 
@@ -22,7 +25,9 @@ export const HomePage = class Homepage {
     await this.getUsernameField.press('Tab');
     await this.getPasswordField.fill(process.env.PASSWORD);
     await this.getLoginButton.click();
-    
+    await this.page.waitForTimeout(1000); 
+    await this.getLanguageButton.click();
+    await this.selectEnglish.click();
     }
 
     async selectObjectFilter(object, option)

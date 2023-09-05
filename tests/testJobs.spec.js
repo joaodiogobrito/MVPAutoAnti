@@ -30,13 +30,29 @@ test('test', async ({ page, context }) => {
     await expect.soft(page.getByRole('cell', { name: 'Schädlingsprophylaxe außen/innen' })).not.toBeVisible();
 
     //Test Jobs details page
-    await page.getByRole('cell', { name: 'Systemeinrichtung' }).click();
-    await expect.soft(page.getByLabel('Auftragsdetails').getByText('Systemeinrichtung')).toBeVisible();
+    await page.getByLabel('Clear selected options').nth(2).click();
+    await page.getByLabel('Remove Systemeinrichtung').click();
+    await page.getByText('UV-Lichtfallen - Wartung und Miete').first().click();
+    await page.waitForTimeout(5000);
+    await page.getByLabel('Close').click();
+    await page.getByText('Systemeinrichtung', { exact: true }).click();
     await expect.soft(page.getByText('Nicht Zutreffend').first()).toBeVisible();
-    await expect.soft(page.getByLabel('Auftragsdetails').getByText('Systemeinrichtung', { exact: true })).toBeVisible();
+    await expect.soft(page.getByText('Schädlingsprophylaxe außen/innen, UV-Lichtfallen - Wartung und Miete')).toBeVisible();
     await expect.soft(page.getByText('Nicht Zutreffend').nth(1)).toBeVisible();
 
+    //Test Download page
+    await page.locator('//*[text()[contains(.,"Ralf")]]').first().click();
+    await page.getByText('82_210329_Zeller,_Ralf_Folgebelehrung_IfSG.pdf').click();
+
+    const downloadPromise = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download Selected documents' }).click();
+    const download = await downloadPromise;
+    await download.path();
+    expect.soft(download.failure()).toBeTruthy();
+    
+
     //Test redirection to Monitors page
+    await page.getByRole('button', { name: 'Close' }).click();
     const page1Promise = context.waitForEvent('page');
     await page.getByRole('link', { name: '5' }).click();
     const page1 = await page1Promise;
@@ -56,9 +72,9 @@ test('test', async ({ page, context }) => {
   
     const download1Promise = page1.waitForEvent('download');
     await page1.getByRole('button', { name: 'Download Proof of Work' }).click();
-    const download = await download1Promise;
-    await download.path();
-    expect.soft(download.failure()).toBeTruthy();
+    const download1 = await download1Promise;
+    await download1.path();
+    expect.soft(download1.failure()).toBeTruthy();
 
     //Test Download Documents
 //    const page2Promise = context.waitForEvent('page');
