@@ -30,6 +30,13 @@ export const HomePage = class Homepage {
     await this.selectEnglish.click();
     }
 
+    async selectLanguage()
+    {
+    await this.page.waitForTimeout(1000); 
+    await this.getLanguageButton.click();
+    await this.selectEnglish.click();
+    } 
+
     async selectObjectFilter(object, option)
     {
     await this.page.getByText('Select Object').click();
@@ -47,25 +54,6 @@ export const HomePage = class Homepage {
       await this.page.getByRole('button', { name: `${option}` , exact: `${optional}`}).click();
       }
     }
-
-    //Top Tabs Navigation
-    async navigateToArea(area)
-    {  await this.page.getByRole('link', { name: `${area}`}).click();
-    }
-
-    //Alerts
-    async closeAlert()
-    {   this.page.once('dialog', dialog => {
-        console.log(`Dialog message: ${dialog.message()}`);
-        dialog.dismiss().catch(() => {});
-      });
-    }   
-    
-    async addToCart()
-    {   await this.getAddToCartButton.click();  }
-
-    async tapNextButton()
-    {   await this.page.locator('#next2').click();  }
 
 
 };

@@ -37,9 +37,9 @@ test('test', async ({ page, context }) => {
     await expect.soft(page.getByRole('row', { name: MB90 }).getByRole('cell').first(),'Assert option is present').toBeVisible();
 
     //Test Select Monitor Type - no results
-    await homepage.selectFilter('Monitor Type','RB');
-    await expect.soft(page.getByText('No Results to Show'),'Assert no results are displayed').toBeVisible();
-    await page.getByLabel('Remove RB').click();
+    //await homepage.selectFilter('Monitor Type','RB');
+    //await expect.soft(page.getByText('No Results to Show'),'Assert no results are displayed').toBeVisible();
+    //await page.getByLabel('Remove RB').click();
 
     //Test Select Monitor Type - with results
     //await homepage.selectFilter('Monitor Type','MB');
@@ -47,9 +47,9 @@ test('test', async ({ page, context }) => {
     //await expect.soft(page.getByRole('row', { name: 'MB90 Sozialraum Umkleide Damen Feuerlöscher' }).getByRole('cell').first(),'Assert option is present').toBeVisible();
 
     //Test Select Checkpoint
-    //await page.getByText('Select Checkpoint').click();
-    //await page.getByRole('button', { name: 'MB 92' }).click();
-    //await expect.soft(page.getByRole('row', { name: 'MB92 Sozialraum Umkleide Herren Feuerlöscher' }).getByRole('cell').first(),'Assert option is present').toBeVisible();
+    await page.getByText('Select Checkpoint').click();
+    await page.getByRole('button', { name: 'MB 92' }).click();
+    await expect.soft(page.getByRole('row', { name: 'MB92 Sozialraum Umkleide Herren Feuerlöscher' }).getByRole('cell').first(),'Assert option is present').toBeVisible();
   
     //Test clear options
     await page.getByLabel('Clear selected options').nth(3).click();

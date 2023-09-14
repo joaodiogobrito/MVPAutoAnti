@@ -6,6 +6,7 @@ test('test', async ({ page }) => {
 
     await homepage.loginUser();
     await page.getByRole('link', { name: 'Smart' }).click();
+    await homepage.selectLanguage();
 
     //Test Select Object
     await homepage.selectObjectFilter('ORT-05313','Aldi SE & Co. KG-VST.28 KST DE820116#ORT-05313');   

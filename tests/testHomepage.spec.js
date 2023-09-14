@@ -16,7 +16,7 @@ test('test', async ({ page, context }) => {
     await expect(page.getByRole('heading', { name: 'Deficiencies' }).getByRole('link')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Statistics' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Smart' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Users' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Users' })).toBeVisible();
 
     //TODO: Add navigation loading and performance testing
   });

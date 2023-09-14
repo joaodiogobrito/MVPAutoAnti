@@ -8,6 +8,7 @@ test('test', async ({ page }) => {
     await page.getByRole('heading', { name: 'Deficiencies' }).getByRole('link').click();
 
     //Test Select Object
+    await homepage.selectLanguage();
     await homepage.selectObjectFilter('ORT-00300','Jütro Tiefkühlkost GmbH & Co.KG#ORT-00300');
 
     //Test Select Area - no results
