@@ -4,7 +4,8 @@ import { test, expect, page} from '@playwright/test';
 test('test', async ({ page, context }) => {
   const homepage = new HomePage(page);
 
-    await homepage.loginUser();
+    await page.goto('http://ax-nimber2.ddns.net:3001/');  
+    await homepage.loginUser(process.env.USERNAME, process.env.PASSWORD);
     await page.getByRole('list').getByRole('link', { name: 'Jobs' }).click();
     
     //Test Select Object
@@ -80,7 +81,7 @@ test('test', async ({ page, context }) => {
 //    const page2Promise = context.waitForEvent('page');
 //    await page1.getByRole('button', { name: 'Download Documents' }).click();
 //    const page2 = await page2Promise;
-//    expect.soft(page2).toHaveURL('https://ax-nimber.ddns.net/documents/136_Trinkwasserprobenehmer_J.Frank-1.pdf');
+//    expect.soft(page2).toHaveURL('http://ax-nimber2.ddns.net:3001/documents/136_Trinkwasserprobenehmer_J.Frank-1.pdf');
     
   });
 

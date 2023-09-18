@@ -4,7 +4,8 @@ import { test, expect, page } from '@playwright/test';
 test('test', async ({ page }) => {
   const homepage = new HomePage(page);
 
-    await homepage.loginUser();
+    await page.goto('http://ax-nimber2.ddns.net:3001/');
+    await homepage.loginUser(process.env.USERNAME, process.env.PASSWORD);
     await page.getByRole('link', { name: 'Floorplans' }).click();
     await homepage.selectObjectFilter('ORT-00300','Jütro Tiefkühlkost GmbH & Co.KG#ORT-00300');
 

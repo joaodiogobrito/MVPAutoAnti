@@ -3,8 +3,9 @@ import { test, expect, page } from '@playwright/test';
 
 test('test', async ({ page, context }) => {
   const homepage = new HomePage(page);
-     
-    await homepage.loginUser();
+    
+    await page.goto('http://ax-nimber2.ddns.net:3001/');
+    await homepage.loginUser(process.env.USERNAME, process.env.PASSWORD);
 
     //Assert data is loaded
     await expect.soft(page.getByRole('cell', { name: 'Contract Number' }),'Assert page is loaded correctly').toBeVisible();

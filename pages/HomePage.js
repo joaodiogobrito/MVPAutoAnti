@@ -17,17 +17,25 @@ export const HomePage = class Homepage {
     }
 
     //Homepage
-    async loginUser()
+    async loginUser(user, pass)
     {
-    await this.page.goto('https://ax-nimber.ddns.net/login');
-    await this.getUsernameField.click();
-    await this.getUsernameField.fill(process.env.USERNAME);
-    await this.getUsernameField.press('Tab');
-    await this.getPasswordField.fill(process.env.PASSWORD);
-    await this.getLoginButton.click();
-    await this.page.waitForTimeout(1000); 
     await this.getLanguageButton.click();
     await this.selectEnglish.click();
+    await this.page.waitForTimeout(1000); 
+    await this.getUsernameField.click();
+    await this.getUsernameField.fill(`${user}`);
+    await this.getUsernameField.press('Tab');
+    await this.getPasswordField.fill(`${pass}`);
+    await this.getLoginButton.click();
+    }
+
+    async logoutUser(user)
+    {
+      await this.page.getByRole('link', { name: 'Logo' }).click();
+      await this.page.getByText(`${user}`+'ProfileLog Out').click();
+      await this.page.getByRole('button', { name: `${user}` }).click();
+      await this.page.getByRole('menuitem', { name: 'Log Out' }).click();
+      await this.page.getByRole('button', { name: 'Log Out' }).click();
     }
 
     async selectLanguage()
